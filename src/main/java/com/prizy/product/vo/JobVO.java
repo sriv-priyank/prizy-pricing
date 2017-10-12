@@ -8,7 +8,7 @@ public class JobVO {
 
     private String job;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
     private Date started;
 
     public String getJob() {
