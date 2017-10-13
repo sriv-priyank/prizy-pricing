@@ -1,4 +1,4 @@
-package com.prizy.product.controller.api;
+package com.prizy.pricing.controller.api;
 
 import org.springframework.http.ResponseEntity;
 

@@ -5,10 +5,13 @@ import com.prizy.store.service.StoreService;
 import com.prizy.store.vo.StorePriceVO;
 import com.prizy.store.vo.StoreVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -32,8 +35,10 @@ public class StoreController implements StoreAPI {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResponseEntity<Void> createStore(@RequestBody StoreVO storeVO) {
-        storeService.createStore(storeVO);
-        return null;
+        StoreVO savedVO = storeService.createStore(storeVO);
+        String id = savedVO.getId();
+        return ResponseEntity.created(location("/{id}", id))
+                .header("Id", id).build();
     }
 
     @GetMapping(value = "/{storeId}")
@@ -45,7 +50,8 @@ public class StoreController implements StoreAPI {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResponseEntity<Void> updateStore(@RequestBody StoreVO storeVO) {
-        return null;
+        storeService.updateStore(storeVO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
@@ -57,7 +63,14 @@ public class StoreController implements StoreAPI {
     @PostMapping(value = "/product", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResponseEntity<StorePriceVO> saveStorePrice(@RequestBody StorePriceVO storePriceVO) {
-        storeService.saveStorePrice(storePriceVO);
-        return null;
+        StorePriceVO savedVO = storeService.saveStorePrice(storePriceVO);
+        String id = savedVO.getId();
+        return ResponseEntity.created(location("/{id}", id))
+                .header("Id", id).body(savedVO);
+    }
+
+    private static URI location(String path, Object... args) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path(path).buildAndExpand(args).toUri();
     }
 }

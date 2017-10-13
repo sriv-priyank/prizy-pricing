@@ -1,6 +1,6 @@
-package com.prizy.product.controller;
+package com.prizy.pricing.controller;
 
-import com.prizy.product.controller.api.JobsAPI;
+import com.prizy.pricing.controller.api.JobsAPI;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

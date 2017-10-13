@@ -2,7 +2,11 @@ package com.prizy.store.service.impl;
 
 import com.prizy.common.exception.RecordNotFoundException;
 import com.prizy.store.domain.entity.Store;
+import com.prizy.store.domain.entity.StorePrice;
+import com.prizy.store.domain.repository.StorePriceRepository;
 import com.prizy.store.domain.repository.StoreRepository;
+import com.prizy.store.mapper.StorePriceToStorePriceVOMapper;
+import com.prizy.store.mapper.StorePriceVOToStorePriceMapper;
 import com.prizy.store.mapper.StoreToStoreVOMapper;
 import com.prizy.store.mapper.StoreVOToStoreMapper;
 import com.prizy.store.service.StoreService;
@@ -22,16 +26,6 @@ public class StoreServiceImpl implements StoreService {
 
     private Logger LOG = LoggerFactory.getLogger(StoreService.class);
 
-    @Autowired
-    private StoreRepository storeRepository;
-
-    @Autowired
-    private StoreToStoreVOMapper storeToStoreVOMapper;
-
-    @Autowired
-    private StoreVOToStoreMapper storeVOToStoreMapper;
-
-
     @Override
     public List<StoreVO> findAllStores() {
         Iterable<Store> entities = storeRepository.findAll();
@@ -39,9 +33,10 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public void createStore(StoreVO storeVO) {
+    public StoreVO createStore(StoreVO storeVO) {
         storeVO.setId(UUID.randomUUID().toString());
-        storeRepository.save(storeVOToStoreMapper.map(storeVO));
+        Store store = storeRepository.save(storeVOToStoreMapper.map(storeVO));
+        return storeToStoreVOMapper.map(store);
     }
 
     @Override
@@ -72,8 +67,13 @@ public class StoreServiceImpl implements StoreService {
         return storeToStoreVOMapper.map(store);
     }
 
-    @Override
-    public StorePriceVO saveStorePrice(StorePriceVO storePriceVO) {
-        return null;
-    }
+
+    @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
+    private StoreToStoreVOMapper storeToStoreVOMapper;
+
+    @Autowired
+    private StoreVOToStoreMapper storeVOToStoreMapper;
 }

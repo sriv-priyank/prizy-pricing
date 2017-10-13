@@ -22,15 +22,6 @@ public class ProductServiceImpl implements ProductService {
 
     private Logger LOG = LoggerFactory.getLogger(ProductService.class);
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ProductToProductVOMapper productToProductVOMapper;
-
-    @Autowired
-    private ProductVOToProductMapper productVOToProductMapper;
-
     @Override
     public List<ProductVO> findAllProducts() {
         Iterable<Product> entities = productRepository.findAll();
@@ -38,9 +29,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void createProduct(ProductVO productVO) {
+    public ProductVO createProduct(ProductVO productVO) {
         productVO.setId(UUID.randomUUID().toString());
-        productRepository.save(productVOToProductMapper.map(productVO));
+        Product product = productRepository.save(productVOToProductMapper.map(productVO));
+        return productToProductVOMapper.map(product);
     }
 
     @Override
@@ -75,4 +67,14 @@ public class ProductServiceImpl implements ProductService {
     public PricingDetailsVO getPrices(String productId) {
         return null;
     }
+
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ProductToProductVOMapper productToProductVOMapper;
+
+    @Autowired
+    private ProductVOToProductMapper productVOToProductMapper;
 }

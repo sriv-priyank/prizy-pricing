@@ -5,10 +5,13 @@ import com.prizy.product.service.ProductService;
 import com.prizy.product.vo.PricingDetailsVO;
 import com.prizy.product.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -32,8 +35,10 @@ public class ProductController implements ProductAPI {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResponseEntity<Void> createProduct(@RequestBody ProductVO productVO) {
-        productService.createProduct(productVO);
-        return null;
+        ProductVO savedVO = productService.createProduct(productVO);
+        String id = savedVO.getId();
+        return ResponseEntity.created(location("/{id}", id))
+                .header("Id", id).build();
     }
 
     @GetMapping(value = "/{productId}")
@@ -46,7 +51,7 @@ public class ProductController implements ProductAPI {
     @Override
     public ResponseEntity<Void> updateProduct(@RequestBody ProductVO productVO) {
         productService.updateProduct(productVO);
-        return null;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
@@ -59,5 +64,10 @@ public class ProductController implements ProductAPI {
     @Override
     public ResponseEntity<PricingDetailsVO> getPrices(@PathVariable String productId) {
         return ResponseEntity.ok(productService.getPrices(productId));
+    }
+
+    private static URI location(String path, Object... args) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path(path).buildAndExpand(args).toUri();
     }
 }

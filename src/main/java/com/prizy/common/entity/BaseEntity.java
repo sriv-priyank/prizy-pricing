@@ -11,12 +11,6 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "uuid2"
-//            strategy = "org.hibernate.id.UUIDGenerator"
-//    )
     @Id
     private String id;
 
