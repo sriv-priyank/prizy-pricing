@@ -1,12 +1,14 @@
-package com.prizy.product.vo;
+package com.prizy.product.domain.entity;
 
-public class PricingDetailsVO {
+import com.prizy.common.entity.BaseEntity;
+
+import javax.persistence.Entity;
+
+
+@Entity
+public class PricingDetails extends BaseEntity {
 
     private String product;
-    private String name;
-    private String description;
-
-    private Double basePrice;
     private Double averagePrice;
     private Double lowestPrice;
     private Double highestPrice;
@@ -18,30 +20,6 @@ public class PricingDetailsVO {
 
     public void setProduct(String product) {
         this.product = product;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(Double basePrice) {
-        this.basePrice = basePrice;
     }
 
     public Double getAveragePrice() {

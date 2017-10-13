@@ -4,6 +4,9 @@ import com.prizy.store.domain.entity.StorePrice;
 import com.prizy.store.vo.StorePriceVO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Component
 public class StorePriceToStorePriceVOMapper {
@@ -26,4 +29,11 @@ public class StorePriceToStorePriceVOMapper {
         return storePriceVO;
     }
 
+    public List<StorePriceVO> mapList(Iterable<StorePrice> entities) {
+        List<StorePriceVO> vos = new ArrayList<>();
+        for (StorePrice entity : entities) {
+            vos.add(map(entity));
+        }
+        return vos;
+    }
 }

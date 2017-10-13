@@ -19,13 +19,6 @@ import java.util.List;
 @RequestMapping(value = "api/v1/product", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController implements ProductAPI {
 
-    private ProductService productService;
-
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
     @GetMapping
     @Override
     public ResponseEntity<List<ProductVO>> findAllProducts() {
@@ -70,4 +63,7 @@ public class ProductController implements ProductAPI {
         return ServletUriComponentsBuilder.fromCurrentRequest()
                 .path(path).buildAndExpand(args).toUri();
     }
+
+    @Autowired
+    private ProductService productService;
 }

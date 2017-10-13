@@ -1,6 +1,9 @@
 package com.prizy.product.controller;
 
 import com.prizy.product.controller.api.JobsAPI;
+import com.prizy.product.service.JobsService;
+import com.prizy.product.vo.JobVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,11 @@ public class JobsController implements JobsAPI {
 
     @PostMapping(value = "/priceCalculator", params = { "command" })
     @Override
-    public ResponseEntity<Void> startPriceCalculatorJob(@RequestParam String command) {
-        return null;
+    public ResponseEntity<JobVO> startPriceCalculatorJob(@RequestParam String command) {
+        JobVO jobVO = jobsService.startPriceCalculatorJob(command);
+        return ResponseEntity.accepted().body(jobVO);
     }
+
+    @Autowired
+    private JobsService jobsService;
 }

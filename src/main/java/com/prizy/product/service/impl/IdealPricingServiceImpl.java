@@ -5,37 +5,29 @@ import com.prizy.product.enumeration.StrategyName;
 import com.prizy.product.service.PricingService;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @PricingStrategy(strategyName = StrategyName.IDEAL)
 public class IdealPricingServiceImpl implements PricingService {
 
     @Override
-    public void compute() {
-
+    public Double compute(List<Double> priceList) {
+        return compute(priceList, false);
     }
 
-    private Map<String, Double> compute(Map<String, List<Double>> priceMap) {
-        Map<String, Double> idealPriceMap = new HashMap<>();
-        for (String key : priceMap.keySet()) {
-            Double idealPrice = compute(priceMap.get(key));
-            idealPriceMap.put(key, idealPrice);
+    @Override
+    public Double compute(List<Double> priceList, boolean sortedAscending) {
+        if (!sortedAscending) {
+            Collections.sort(priceList);
         }
-        return idealPriceMap;
-    }
-
-    private Double compute(List<Double> prices) {
-        Collections.sort(prices);
         Double sum = 0d;
 
-        for (int i = 2; i < prices.size() - 2; i++) {
-            sum += prices.get(i);
+        for (int i = 2; i < priceList.size() - 2; i++) {
+            sum += priceList.get(i);
         }
 
-        Double avg = sum / (prices.size() - 4);
+        Double avg = sum / (priceList.size() - 4);
         return 1.2 * avg;
     }
 }

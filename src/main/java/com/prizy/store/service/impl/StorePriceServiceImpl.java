@@ -9,6 +9,7 @@ import com.prizy.store.vo.StorePriceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -23,6 +24,11 @@ public class StorePriceServiceImpl implements StorePriceService {
         return storePriceToStorePriceVOMapper.map(storePrice);
     }
 
+    @Override
+    public List<StorePriceVO> findByProductId(String productId) {
+        List<StorePrice> prices = storePriceRepository.findByProductId(productId);
+        return storePriceToStorePriceVOMapper.mapList(prices);
+    }
 
     @Autowired
     private StorePriceRepository storePriceRepository;

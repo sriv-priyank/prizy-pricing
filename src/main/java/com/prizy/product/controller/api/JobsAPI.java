@@ -1,8 +1,9 @@
 package com.prizy.product.controller.api;
 
+import com.prizy.product.vo.JobVO;
 import org.springframework.http.ResponseEntity;
 
 public interface JobsAPI {
 
-    ResponseEntity<Void> startPriceCalculatorJob(String command);
+    ResponseEntity<JobVO> startPriceCalculatorJob(String command);
 }

@@ -1,6 +1,7 @@
 package com.prizy.store.controller;
 
 import com.prizy.store.controller.api.StoreAPI;
+import com.prizy.store.service.StorePriceService;
 import com.prizy.store.service.StoreService;
 import com.prizy.store.vo.StorePriceVO;
 import com.prizy.store.vo.StoreVO;
@@ -18,13 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/v1/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StoreController implements StoreAPI {
-
-    private StoreService storeService;
-
-    @Autowired
-    public StoreController(StoreService storeService) {
-        this.storeService = storeService;
-    }
 
     @GetMapping
     @Override
@@ -63,7 +57,7 @@ public class StoreController implements StoreAPI {
     @PostMapping(value = "/product", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResponseEntity<StorePriceVO> saveStorePrice(@RequestBody StorePriceVO storePriceVO) {
-        StorePriceVO savedVO = storeService.saveStorePrice(storePriceVO);
+        StorePriceVO savedVO = storePriceService.saveStorePrice(storePriceVO);
         String id = savedVO.getId();
         return ResponseEntity.created(location("/{id}", id))
                 .header("Id", id).body(savedVO);
@@ -73,4 +67,10 @@ public class StoreController implements StoreAPI {
         return ServletUriComponentsBuilder.fromCurrentRequest()
                 .path(path).buildAndExpand(args).toUri();
     }
+
+    @Autowired
+    private StoreService storeService;
+
+    @Autowired
+    private StorePriceService storePriceService;
 }

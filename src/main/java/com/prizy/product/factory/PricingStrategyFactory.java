@@ -44,7 +44,7 @@ public class PricingStrategyFactory {
                     strategyAnnotation = AnnotationUtils.findAnnotation(
                             target.getClass(), PricingStrategy.class);
                 } catch (Exception e) {
-
+                    throw new RuntimeException("Unable to locate annotation.");
                 }
             }
             StrategyName strategyName = strategyAnnotation.strategyName();
