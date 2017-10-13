@@ -1,7 +1,7 @@
 package com.prizy.store.domain.entity;
 
 import com.prizy.common.entity.BaseEntity;
-import com.prizy.product.core.domain.entity.Product;
+import com.prizy.product.domain.entity.Product;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
