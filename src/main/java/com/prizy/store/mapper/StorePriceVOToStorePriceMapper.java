@@ -1,6 +1,6 @@
 package com.prizy.store.mapper;
 
-import com.prizy.product.domain.entity.Product;
+import com.prizy.product.core.domain.entity.Product;
 import com.prizy.store.domain.entity.Store;
 import com.prizy.store.domain.entity.StorePrice;
 import com.prizy.store.vo.StorePriceVO;
