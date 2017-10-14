@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class PriceCalculationTask implements Runnable {
 
+    private static final int roundPlaces = 2;
     private String productId;
     private PricingService pricingService;
 
@@ -59,13 +60,21 @@ public class PriceCalculationTask implements Runnable {
         Double idealPrice = pricingService.compute(prices, true);
 
         PricingDetails pricingDetails = new PricingDetails();
+        pricingDetails.setProduct(productId);
         pricingDetails.setId(UUID.randomUUID().toString());
-        pricingDetails.setIdealPrice(idealPrice);
-        pricingDetails.setAveragePrice(getAverage(prices));
+        pricingDetails.setIdealPrice(round(idealPrice, roundPlaces));
+        pricingDetails.setAveragePrice(round(getAverage(prices), roundPlaces));
         pricingDetails.setLowestPrice(getLowest(prices));
         pricingDetails.setHighestPrice(getHighest(prices));
 
         return pricingDetails;
+    }
+
+    private double round(double value, int places) {
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     private Double getLowest(List<Double> priceList) {

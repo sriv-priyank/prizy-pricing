@@ -80,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
         vo.setProduct(productId);
         vo.setName(product.getProductName());
         vo.setDescription(product.getDescription());
-
+        vo.setBasePrice(product.getBasePrice());
         vo.setIdealPrice(pricingDetails.getIdealPrice());
         vo.setAveragePrice(pricingDetails.getAveragePrice());
         vo.setLowestPrice(pricingDetails.getLowestPrice());

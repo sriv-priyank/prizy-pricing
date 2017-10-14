@@ -22,12 +22,20 @@ public class IdealPricingServiceImpl implements PricingService {
             Collections.sort(priceList);
         }
         Double sum = 0d;
+        int lo, hi;
+        if (priceList.size() < 5) {
+            lo = 0;
+            hi = priceList.size();
+        } else {
+            lo = 2;
+            hi = priceList.size() - 2;
+        }
 
-        for (int i = 2; i < priceList.size() - 2; i++) {
+        for (int i = lo; i < hi; i++) {
             sum += priceList.get(i);
         }
 
-        Double avg = sum / (priceList.size() - 4);
+        Double avg = sum / (hi - lo);   // size = hi - lo
         return 1.2 * avg;
     }
 }

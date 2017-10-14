@@ -23,6 +23,7 @@ public class StorePriceToStorePriceVOMapper {
             storePriceVO.setStore(storePrice.getStore().getId());
         }
 
+        storePriceVO.setPrice(storePrice.getPrice());
         storePriceVO.setNotes(storePrice.getNotes());
         storePriceVO.setCreated(storePrice.getCreated());
 
