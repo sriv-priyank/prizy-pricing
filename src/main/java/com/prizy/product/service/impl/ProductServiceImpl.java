@@ -47,12 +47,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(ProductVO productVO) {
-        Product oldProduct = productRepository.findOne(productVO.getId());
+    public ProductVO updateProduct(String productId, ProductVO productVO) {
+        Product oldProduct = productRepository.findOne(productId);
         if (oldProduct == null) {
             throw new RecordNotFoundException("Fatal: Cannot update product that doesn't exist.");
         }
-        productRepository.save(productVOToProductMapper.map(productVO));
+        productVO.setId(productId);
+        Product product = productRepository.save(productVOToProductMapper.map(productVO));
+        return productToProductVOMapper.map(product);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface ProductAPI {
 
     ResponseEntity<ProductVO> findProduct(String productId);
 
-    ResponseEntity<Void> updateProduct(ProductVO productVO);
+    ResponseEntity<Void> updateProduct(String productId, ProductVO productVO);
 
     ResponseEntity<ProductVO> deleteProduct(String productId);
 

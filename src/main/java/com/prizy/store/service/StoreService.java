@@ -13,7 +13,7 @@ public interface StoreService {
 
     StoreVO findStore(String storeId);
 
-    void updateStore(StoreVO storeVO);
+    StoreVO updateStore(String storeId, StoreVO storeVO);
 
     StoreVO deleteStore(String storeId);
 }

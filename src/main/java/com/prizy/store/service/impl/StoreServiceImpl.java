@@ -44,12 +44,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public void updateStore(StoreVO storeVO) {
+    public StoreVO updateStore(String storeId, StoreVO storeVO) {
         Store oldStore = storeRepository.findOne(storeVO.getId());
         if (oldStore == null) {
             throw new RecordNotFoundException("Fatal: Cannot update store that doesn't exist.");
         }
-        storeRepository.save(storeVOToStoreMapper.map(storeVO));
+        Store store = storeRepository.save(storeVOToStoreMapper.map(storeVO));
+        return storeToStoreVOMapper.map(store);
     }
 
     @Override

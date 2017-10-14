@@ -40,16 +40,17 @@ public class ProductController implements ProductAPI {
         return ResponseEntity.ok(productService.findProduct(productId));
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
-    public ResponseEntity<Void> updateProduct(@RequestBody ProductVO productVO) {
-        productService.updateProduct(productVO);
+    public ResponseEntity<Void> updateProduct(@PathVariable String productId,
+            @RequestBody ProductVO productVO) {
+        productService.updateProduct(productId, productVO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{productId}")
     @Override
-    public ResponseEntity<ProductVO> deleteProduct(String productId) {
+    public ResponseEntity<ProductVO> deleteProduct(@PathVariable String productId) {
         return ResponseEntity.ok(productService.deleteProduct(productId));
     }
 

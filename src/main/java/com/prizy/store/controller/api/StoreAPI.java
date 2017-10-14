@@ -14,7 +14,7 @@ public interface StoreAPI {
 
     ResponseEntity<StoreVO> findStore(String storeId);
 
-    ResponseEntity<Void> updateStore(StoreVO storeVO);
+    ResponseEntity<Void> updateStore(String storeId, StoreVO storeVO);
 
     ResponseEntity<StoreVO> deleteStore(String storeId);
 

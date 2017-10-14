@@ -13,7 +13,7 @@ public interface ProductService {
 
     ProductVO findProduct(String productId);
 
-    void updateProduct(ProductVO productVO);
+    ProductVO updateProduct(String productId, ProductVO productVO);
 
     ProductVO deleteProduct(String productId);
 

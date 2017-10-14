@@ -41,14 +41,15 @@ public class StoreController implements StoreAPI {
         return ResponseEntity.ok(storeService.findStore(storeId));
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{storeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
-    public ResponseEntity<Void> updateStore(@RequestBody StoreVO storeVO) {
-        storeService.updateStore(storeVO);
+    public ResponseEntity<Void> updateStore(@PathVariable String storeId,
+            @RequestBody StoreVO storeVO) {
+        storeService.updateStore(storeId, storeVO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{storeId}")
     @Override
     public ResponseEntity<StoreVO> deleteStore(String storeId) {
         return ResponseEntity.ok(storeService.deleteStore(storeId));
