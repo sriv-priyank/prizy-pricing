@@ -12,14 +12,14 @@ import java.util.Date;
 
 
 @Service
-public class JobServiceImpl implements JobsService {
+public class JobsServiceImpl implements JobsService {
 
     @Override
     public JobVO startPriceCalculatorJob(String command) {
         if ("start".equals(command)) {
             long started = priceCalculationJob.calculatePrices();
             if (started == -1L) {
-                throw new ApiException("Another job is already running...");
+                throw new ApiException("Another job is already running.");
 
             } else {
                 JobVO jobVO = new JobVO();
@@ -29,7 +29,7 @@ public class JobServiceImpl implements JobsService {
                 return jobVO;
             }
         }
-        throw new BadRequestException("Invalid command");
+        throw new BadRequestException("Invalid command.");
 
     }
 

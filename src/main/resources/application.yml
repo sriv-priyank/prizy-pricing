@@ -2,13 +2,19 @@ server:
   port: 8080
 
 spring:
-    datasource:
-        url: jdbc:h2:file:~/h2/prizy_db;DB_CLOSE_ON_EXIT=FALSE
-        username: sa
-        password:
-        driverClassName: org.h2.Driver
-    jpa:
-        generate-ddl: false
-        hibernate.ddl-auto: validate
-        properties.hibernate.dialect: com.prizy.common.config.H2DialectCustom
-#        properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    url: jdbc:h2:file:~/h2/prizy_db;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: validate
+    properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+
+pricing:
+  strategy: IDEAL
+  calculationJob:
+    threads: 4
+
+
