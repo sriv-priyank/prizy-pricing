@@ -34,6 +34,7 @@ $ ./run.sh
 
 The application is available at : [http://localhost:8080/](http://localhost:8080/)
 &nbsp;
+&nbsp;
 
 ### Making REST  calls
 Swagger API documentation is available for this project. All APIs can be navigated and tested using the documentation.
@@ -43,7 +44,7 @@ Navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagge
 
 List of APIs exposed by the service:
 
-![api-list](apis.png)
+![api-list](apis.PNG)
 &nbsp;
 
 #### Sample execution:
@@ -51,12 +52,12 @@ List of APIs exposed by the service:
 
     i. Getting a list of products
 
-    ![get-products](get_products.png)
+    ![get-products](get_products.PNG)
     &nbsp;
 
     ii. Creating a product
 
-    ![create-product](create_product.png)
+    ![create-product](create_product.PNG)
 
     Payload:
     ~~~
@@ -77,7 +78,7 @@ List of APIs exposed by the service:
 
     iii. Finding a product
 
-    ![find-product](find_product.png)
+    ![find-product](find_product.PNG)
 
     Returns a representation of the product.
 &nbsp;
@@ -86,12 +87,12 @@ List of APIs exposed by the service:
 
     i. Getting a list of stores
 
-    ![get-stores](get_stores.png)
+    ![get-stores](get_stores.PNG)
     &nbsp;
 
     ii. Creating a store
 
-    ![create-store](create_store.png)
+    ![create-store](create_store.PNG)
 
     Payload:
     ~~~
@@ -111,14 +112,14 @@ List of APIs exposed by the service:
 
     iii. Finding a store
 
-    ![find-store](find_store.png)
+    ![find-store](find_store.PNG)
 
     Returns a representation of the store.
 &nbsp;
 
 3. Saving Store Price
 
-![store-price](store_price.png)
+![store-price](store_price.PNG)
 
 Payload:
 ~~~
@@ -134,17 +135,17 @@ Payload:
 4. Triggering a Job
 Command - start
 
-![job](job.png)
+![job](job.PNG)
 &nbsp;
 
 5. Get pricing details for a Product
 Use product Id - a4de46b6-cb70-4b8a-9b54-9c11baeb1a60
 
-![price-req](price_req.png)
+![price-req](price_req.PNG)
 
 The response should be something like this:
 
-![price-resp](price_resp.png)
+![price-resp](price_resp.PNG)
 
 &nbsp;
 
