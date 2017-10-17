@@ -53,4 +53,14 @@ public class StorePrice extends BaseEntity {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        return "StorePrice{" +
+                store == null ? "" : "store='" + store.getStoreName() + '\'' +
+                product == null ? "" :", product='" + product.getProductName() + '\'' +
+                ", price=" + price +
+                ", created='" + getCreated() + '\'' +
+                '}';
+    }
 }

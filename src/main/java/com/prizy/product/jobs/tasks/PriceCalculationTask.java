@@ -7,6 +7,8 @@ import com.prizy.product.factory.PricingStrategyFactory;
 import com.prizy.product.service.PricingService;
 import com.prizy.store.service.StorePriceService;
 import com.prizy.store.vo.StorePriceVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class PriceCalculationTask implements Runnable {
 
+    private Logger LOG = LoggerFactory.getLogger(PriceCalculationTask.class);
+
     private static final int roundPlaces = 2;
     private String productId;
     private PricingService pricingService;
@@ -31,6 +35,7 @@ public class PriceCalculationTask implements Runnable {
 
     @PostConstruct
     public void init() {
+        LOG.info("Initializing pricing strategy: {}", pricingStrategy);
         this.pricingService = pricingStrategyFactory.getStrategy(
                 StrategyName.valueOf(pricingStrategy));
     }
@@ -38,9 +43,10 @@ public class PriceCalculationTask implements Runnable {
     @Override
     public void run() {
         List<StorePriceVO> storePriceVOs = storePriceService.findByProductId(productId);
-        if (storePriceVOs.size() < 1)
+        if (storePriceVOs.size() < 1) {
+            LOG.info("No price list for product: {}", productId);
             return;
-
+        }
         computeAndSavePricingDetails(extractPriceList(storePriceVOs));
     }
 
@@ -67,6 +73,7 @@ public class PriceCalculationTask implements Runnable {
         pricingDetails.setLowestPrice(getLowest(prices));
         pricingDetails.setHighestPrice(getHighest(prices));
 
+        LOG.info("Storing PricingDetails : {}", pricingDetails);
         return pricingDetails;
     }
 

@@ -75,4 +75,16 @@ public class PricingDetailsVO {
     public void setIdealPrice(Double idealPrice) {
         this.idealPrice = idealPrice;
     }
+
+    @Override
+    public String toString() {
+        return "PricingDetailsVO{" +
+                "name='" + name + '\'' +
+                ", basePrice=" + basePrice +
+                ", averagePrice=" + averagePrice +
+                ", lowestPrice=" + lowestPrice +
+                ", highestPrice=" + highestPrice +
+                ", idealPrice=" + idealPrice +
+                '}';
+    }
 }

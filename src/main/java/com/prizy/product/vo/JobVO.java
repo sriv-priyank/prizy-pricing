@@ -26,4 +26,12 @@ public class JobVO {
     public void setStarted(Date started) {
         this.started = started;
     }
+
+    @Override
+    public String toString() {
+        return "JobVO{" +
+                "job='" + job + '\'' +
+                ", started=" + started +
+                '}';
+    }
 }

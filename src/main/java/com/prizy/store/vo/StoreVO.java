@@ -44,4 +44,12 @@ public class StoreVO {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "StoreVO{" +
+                "storeName='" + storeName + '\'' +
+                ", created=" + created +
+                '}';
+    }
 }

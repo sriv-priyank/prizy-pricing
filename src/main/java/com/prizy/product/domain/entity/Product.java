@@ -34,4 +34,13 @@ public class Product extends BaseEntity {
     public void setBasePrice(Double basePrice) {
         this.basePrice = basePrice;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productName='" + productName + '\'' +
+                ", basePrice=" + basePrice +
+                ", created='" + getCreated() + '\'' +
+                '}';
+    }
 }

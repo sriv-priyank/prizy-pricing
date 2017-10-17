@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +28,13 @@ public class StoreServiceImpl implements StoreService {
         return storeToStoreVOMapper.mapList(entities);
     }
 
+    @Transactional
     @Override
     public StoreVO createStore(StoreVO storeVO) {
         storeVO.setId(UUID.randomUUID().toString());
         Store store = storeRepository.save(storeVOToStoreMapper.map(storeVO));
+
+        LOG.info("Saved Store: {}", store);
         return storeToStoreVOMapper.map(store);
     }
 
@@ -38,31 +42,41 @@ public class StoreServiceImpl implements StoreService {
     public StoreVO findStore(String storeId) {
         Store store = storeRepository.findOne(storeId);
         if (store == null) {
+            LOG.error("Store not found with ID: {}", storeId);
             throw new RecordNotFoundException("Store not found.");
         }
+        LOG.info("Returning Store: {}", store);
         return storeToStoreVOMapper.map(store);
     }
 
+    @Transactional
     @Override
     public StoreVO updateStore(String storeId, StoreVO storeVO) {
         Store oldStore = storeRepository.findOne(storeVO.getId());
         if (oldStore == null) {
+            LOG.error("Store not found with ID: {}", storeId);
             throw new RecordNotFoundException("Fatal: Cannot update store that doesn't exist.");
         }
+        storeVO.setId(storeId);
         Store store = storeRepository.save(storeVOToStoreMapper.map(storeVO));
+
+        LOG.info("ID: {}, Updated store: {}", storeId, store);
         return storeToStoreVOMapper.map(store);
     }
 
+    @Transactional
     @Override
     public StoreVO deleteStore(String storeId) {
         Store store = storeRepository.findOne(storeId);
         if (store == null) {
+            LOG.error("Store not found with ID: {}", storeId);
             throw new RecordNotFoundException("Fatal: Cannot delete store that doesn't exist.");
         }
         storeRepository.delete(store);
+
+        LOG.info("ID: {}, Deleted store: {}", storeId, store);
         return storeToStoreVOMapper.map(store);
     }
-
 
     @Autowired
     private StoreRepository storeRepository;

@@ -62,4 +62,14 @@ public class StorePriceVO {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "StorePriceVO{" +
+                "store='" + store + '\'' +
+                ", product='" + product + '\'' +
+                ", price=" + price +
+                ", created=" + created +
+                '}';
+    }
 }

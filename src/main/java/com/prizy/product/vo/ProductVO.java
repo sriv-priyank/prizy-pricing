@@ -53,4 +53,13 @@ public class ProductVO {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    @Override
+    public String toString() {
+        return "ProductVO{" +
+                "productName='" + productName + '\'' +
+                ", basePrice=" + basePrice +
+                ", created=" + created +
+                '}';
+    }
 }

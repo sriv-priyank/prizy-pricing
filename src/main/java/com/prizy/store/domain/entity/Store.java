@@ -25,4 +25,12 @@ public class Store extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "storeName='" + storeName + '\'' +
+                ", created='" + getCreated() + '\'' +
+                '}';
+    }
 }

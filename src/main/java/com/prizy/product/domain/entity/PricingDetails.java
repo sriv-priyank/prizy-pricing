@@ -53,4 +53,16 @@ public class PricingDetails extends BaseEntity {
     public void setIdealPrice(Double idealPrice) {
         this.idealPrice = idealPrice;
     }
+
+    @Override
+    public String toString() {
+        return "PricingDetails{" +
+                "product='" + product + '\'' +
+                ", averagePrice=" + averagePrice +
+                ", lowestPrice=" + lowestPrice +
+                ", highestPrice=" + highestPrice +
+                ", idealPrice=" + idealPrice +
+                ", created='" + getCreated() + '\'' +
+                '}';
+    }
 }
