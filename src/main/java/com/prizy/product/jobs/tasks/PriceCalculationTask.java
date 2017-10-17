@@ -86,19 +86,19 @@ public class PriceCalculationTask implements Runnable {
 
     private Double getLowest(List<Double> priceList) {
         if (priceList.size() < 1)
-            return null;
+            return 0d;
         return priceList.get(0);
     }
 
     private Double getHighest(List<Double> priceList) {
         if (priceList.size() < 1)
-            return null;
+            return 0d;
         return priceList.get(priceList.size() - 1);
     }
 
     private Double getAverage(List<Double> priceList) {
         if (priceList.size() < 1)
-            return null;
+            return 0d;
 
         Double sum = 0d;
         for (int i = 0; i < priceList.size(); i++) {
