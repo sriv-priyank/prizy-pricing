@@ -8,7 +8,6 @@ import com.prizy.store.mapper.StorePriceToStorePriceVOMapper;
 import com.prizy.store.mapper.StorePriceVOToStorePriceMapper;
 import com.prizy.store.service.impl.StorePriceServiceImpl;
 import com.prizy.store.vo.StorePriceVO;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,11 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StorePriceServiceTest {

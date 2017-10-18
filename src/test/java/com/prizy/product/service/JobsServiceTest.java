@@ -5,20 +5,18 @@ import com.prizy.common.exception.BadRequestException;
 import com.prizy.product.jobs.PriceCalculationJob;
 import com.prizy.product.service.impl.JobsServiceImpl;
 import com.prizy.product.vo.JobVO;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JobsServiceTest {

@@ -1,7 +1,6 @@
 package com.prizy.product.annotation;
 
 import com.prizy.product.enumeration.StrategyName;
-import com.prizy.product.factory.PricingStrategyFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
