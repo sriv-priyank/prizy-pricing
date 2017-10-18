@@ -99,10 +99,15 @@ public class ProductServiceImpl implements ProductService {
         pricingDetailsVO.setName(product.getProductName());
         pricingDetailsVO.setDescription(product.getDescription());
         pricingDetailsVO.setBasePrice(product.getBasePrice());
-        pricingDetailsVO.setIdealPrice(pricingDetails.getIdealPrice());
-        pricingDetailsVO.setAveragePrice(pricingDetails.getAveragePrice());
-        pricingDetailsVO.setLowestPrice(pricingDetails.getLowestPrice());
-        pricingDetailsVO.setHighestPrice(pricingDetails.getHighestPrice());
+
+        if (pricingDetails != null) {
+            pricingDetailsVO.setIdealPrice(pricingDetails.getIdealPrice());
+            pricingDetailsVO.setAveragePrice(pricingDetails.getAveragePrice());
+            pricingDetailsVO.setLowestPrice(pricingDetails.getLowestPrice());
+            pricingDetailsVO.setHighestPrice(pricingDetails.getHighestPrice());
+        } else {
+            LOG.info("Pricing info not available for product with ID: {}", productId);
+        }
 
         LOG.info("Pricing Details response: {}", pricingDetailsVO);
         return pricingDetailsVO;
