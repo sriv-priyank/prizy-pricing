@@ -150,8 +150,9 @@ The response should be something like this:
 &nbsp;
 
 ### Database
-- H2 in memory database (file-backed).
+- H2 embedded database (file-backed).
 - Flyway migration for creating the schema and bootstrapping with sample data.
+&nbsp;
 
 ### Unit Tests
 Unit test for Service layer and MVC test for Controller are present in test module.
@@ -159,3 +160,15 @@ Unit test for Service layer and MVC test for Controller are present in test modu
 $ ./gradlew test
 ~~~
 The test [reports](http://localhost:63342/prizy-pricing/build/reports/tests/test/) will be generated.
+&nbsp;
+
+### Pricing strategy
+Pricing Strategy is controlled from application properties:
+~~~
+pricing:
+  strategy: IDEAL
+~~~
+
+This is mapped to an enum `StrategyName` and resolved against the actual implementation of the strategy. For example, `StrategyName.IDEAL` maps to `IdealPricingServiceImpl`.
+
+Each strategy needs to be annotated with `@PricingStrategy` to be identified as a valid strategy. The required strategy is picked up at runtime as per the above application property.
