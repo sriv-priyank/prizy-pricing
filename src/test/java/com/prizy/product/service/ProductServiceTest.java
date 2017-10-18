@@ -1,11 +1,14 @@
 package com.prizy.product.service;
 
 import com.prizy.common.exception.RecordNotFoundException;
+import com.prizy.product.domain.entity.PricingDetails;
 import com.prizy.product.domain.entity.Product;
+import com.prizy.product.domain.repository.PricingDetailsRepository;
 import com.prizy.product.domain.repository.ProductRepository;
 import com.prizy.product.mapper.ProductToProductVOMapper;
 import com.prizy.product.mapper.ProductVOToProductMapper;
 import com.prizy.product.service.impl.ProductServiceImpl;
+import com.prizy.product.vo.PricingDetailsVO;
 import com.prizy.product.vo.ProductVO;
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import sun.dc.pr.PRError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,6 +39,9 @@ public class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
+
+    @Mock
+    private PricingDetailsRepository pricingDetailsRepository;
 
     @Mock
     private ProductToProductVOMapper productToProductVOMapper;
@@ -177,5 +185,46 @@ public class ProductServiceTest {
         thrown.expectMessage("Fatal: Cannot delete product that doesn't exist.");
 
         productService.deleteProduct(id);
+    }
+
+    @Test
+    public void testGetPrices_NotFound() {
+        String id = UUID.randomUUID().toString();
+
+        when(productRepository.findOne(id)).thenReturn(null);
+
+        thrown.expect(RecordNotFoundException.class);
+        thrown.expectMessage("Product doesn't exist.");
+
+        productService.getPrices(id);
+    }
+
+    @Test
+    public void testGetPrices() {
+        String id = UUID.randomUUID().toString();
+        Product product = new Product();
+        product.setId(id);
+        product.setBasePrice(2319.0);
+        product.setProductName("Product-1");
+
+        PricingDetails pricingDetails = new PricingDetails();
+        pricingDetails.setProduct(id);
+        pricingDetails.setIdealPrice(2500.0);
+        pricingDetails.setAveragePrice(2311.0);
+        pricingDetails.setLowestPrice(2234.5);
+        pricingDetails.setHighestPrice(2679.0);
+
+        when(productRepository.findOne(id)).thenReturn(product);
+        when(pricingDetailsRepository.findLatestByProductId(anyString()))
+                .thenReturn(pricingDetails);
+
+        PricingDetailsVO result = productService.getPrices(id);
+
+        assertEquals(result.getName(), product.getProductName());
+        assertEquals(result.getBasePrice(), product.getBasePrice());
+        assertEquals(result.getIdealPrice(), pricingDetails.getIdealPrice());
+        assertEquals(result.getAveragePrice(), pricingDetails.getAveragePrice());
+        assertEquals(result.getLowestPrice(), pricingDetails.getLowestPrice());
+        assertEquals(result.getHighestPrice(), pricingDetails.getHighestPrice());
     }
 }
